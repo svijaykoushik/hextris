@@ -1,0 +1,99 @@
+{
+  "name": "Hextris",
+  "short_name": "Hextris",
+  "id": "hextris.io",
+  "description": "An addictive fast-paced hexagonal puzzle game inspired by Tetris.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ecf0f1",
+  "theme_color": "#2c3e50",
+  "categories": ["games", "puzzle", "arcade"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "images/icons/transparent-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icons/transparent-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icons/transparent-192.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icons/transparent-512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icons/transparent.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/maskable-192.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/maskable-512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "game": {
+    "genre": "Arcade Puzzle",
+    "subgenre": "Hexagonal Match / Falling Block",
+    "developer": "Logan Engstrom, Garrett Finucane, Noah Moroze, Michael Yang",
+    "license": "GPL-3.0-or-later",
+    "repository": "https://github.com/Hextris/hextris",
+    "upstream_repository": "https://github.com/Hextris/hextris.git",
+    "entry_point": "index.html",
+    "multiplayer": false,
+    "tech_stack": ["HTML5 Canvas", "JavaScript", "Web Audio API", "LocalStorage"],
+    "controls": {
+      "keyboard": ["ArrowLeft / A (Rotate Left)", "ArrowRight / D (Rotate Right)", "ArrowDown / S (Speed up drop)", "Space / P (Pause)"],
+      "touch": ["Tap left half of screen (Rotate Left)", "Tap right half of screen (Rotate Right)", "Swipe down (Speed up)"]
+    },
+    "features": [
+      "Dynamic 60FPS HTML5 Canvas rendering",
+      "Hexagonal color matching and combo multiplier scoring",
+      "Local high score tracking and sharing",
+      "Responsive layout optimized for mobile and desktop screens",
+      "PWA offline support"
+    ]
+  }
+}

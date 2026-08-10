@@ -1,0 +1,19 @@
+id: hextris
+name: Hextris
+
+runtime:
+  type: docker
+  service: game-hextris
+  port: 80
+
+hosting:
+  hostname: hextris.localhost
+
+metadata:
+  genre: Arcade Puzzle
+  developer: "Logan Engstrom, Garrett Finucane, Noah Moroze, Michael Yang"
+  license: GPL-3.0-or-later
+  upstream: https://github.com/Hextris/hextris
+  multiplayer: false
+  icon: "⬡"
+  description: Addictive hexagonal puzzle game inspired by Tetris. Rotate the hexagon to match 3+ blocks of the same color.
