@@ -1,5 +1,56 @@
 $(document).ready(function() {
-	initialize();
+	// Intercept localStorage writes to auto-sync with WGCP SDK (Section 1)
+	const originalSetItem = localStorage.setItem.bind(localStorage);
+	localStorage.setItem = function(key, value) {
+		originalSetItem(key, value);
+		if (window.WGCP && (key === 'saveState' || key === 'highscores')) {
+			var parsed = value;
+			try { parsed = JSON.parse(value); } catch(e) {}
+			window.WGCP.storage.save(key, parsed);
+			if (key === 'highscores') {
+				var list = Array.isArray(parsed) ? parsed : [];
+				var maxScore = list.reduce(function(a, b) { return Math.max(a, Number(b) || 0); }, 0);
+				if (maxScore > 0) {
+					window.WGCP.leaderboards.submitScore("highscores", maxScore).catch(function(e) {
+						console.warn("Failed to submit score to leaderboard:", e);
+					});
+				}
+			}
+		}
+	};
+
+	const originalRemoveItem = localStorage.removeItem.bind(localStorage);
+	localStorage.removeItem = function(key) {
+		originalRemoveItem(key);
+		if (window.WGCP && (key === 'saveState' || key === 'highscores')) {
+			window.WGCP.storage.delete(key);
+		}
+	};
+
+	if (window.WGCP) {
+		window.WGCP.init().then(function() {
+			// Pre-populate localStorage from cloud saves before initialization
+			return window.WGCP.storage.load("saveState").then(function(val) {
+				if (val) {
+					originalSetItem("saveState", typeof val === 'string' ? val : JSON.stringify(val));
+				}
+				return window.WGCP.storage.load("highscores");
+			}).then(function(val) {
+				if (val) {
+					originalSetItem("highscores", typeof val === 'string' ? val : JSON.stringify(val));
+				}
+				initialize();
+			}).catch(function(e) {
+				console.error("WGCP sync failed:", e);
+				initialize();
+			});
+		}).catch(function(e) {
+			console.error("WGCP init failed:", e);
+			initialize();
+		});
+	} else {
+		initialize();
+	}
 });
 function initialize(a) {
 	window.rush = 1;
