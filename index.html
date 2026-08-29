@@ -66,6 +66,33 @@
 		<script src="vendor/sweet-alert.min.js"></script>
 		<link rel="stylesheet" href="style/rrssb.css"/>
 		<script data-ad-client="ca-pub-9107422120987163" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<script>
+			if (window.self !== window.top) {
+				window.addEventListener('keydown', function(e) {
+					if (e.key === 'Escape') {
+						e.preventDefault();
+						e.stopPropagation();
+						var correlationId = (function() {
+							if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+								try { return crypto.randomUUID(); } catch (err) {}
+							}
+							return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+								var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+								return v.toString(16);
+							});
+						})();
+						var urlParams = new URLSearchParams(window.location.search);
+						var portalOrigin = urlParams.get('wgcp_origin') || 'http://localhost';
+						window.parent.postMessage({
+							id: correlationId,
+							type: 'WGCP_TOGGLE_MENU',
+							source: 'WGCP_SDK',
+							version: '2.0.0'
+						}, portalOrigin);
+					}
+				}, true);
+			}
+		</script>
 	</head>
 	<body>
 		<canvas id="canvas"></canvas>
