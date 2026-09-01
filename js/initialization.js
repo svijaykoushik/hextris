@@ -33,11 +33,21 @@ $(document).ready(function() {
 			return window.WGCP.storage.load("saveState").then(function(val) {
 				if (val) {
 					originalSetItem("saveState", typeof val === 'string' ? val : JSON.stringify(val));
+				} else if (localStorage.getItem("saveState")) {
+					try {
+						var localSave = JSON.parse(localStorage.getItem("saveState"));
+						window.WGCP.storage.save("saveState", localSave);
+					} catch(e) {}
 				}
 				return window.WGCP.storage.load("highscores");
 			}).then(function(val) {
 				if (val) {
 					originalSetItem("highscores", typeof val === 'string' ? val : JSON.stringify(val));
+				} else if (localStorage.getItem("highscores")) {
+					try {
+						var localScores = JSON.parse(localStorage.getItem("highscores"));
+						window.WGCP.storage.save("highscores", localScores);
+					} catch(e) {}
 				}
 				initialize();
 			}).catch(function(e) {
