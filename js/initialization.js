@@ -29,6 +29,29 @@ $(document).ready(function() {
 
 	if (window.WGCP) {
 		window.WGCP.init().then(function() {
+			// Register graceful platform teardown handler
+			window.WGCP.system.onPrepareExit(function() {
+				var promises = [];
+				try {
+					if (typeof exportSaveState === 'function') {
+						exportSaveState();
+					}
+					var rawSave = localStorage.getItem("saveState");
+					if (rawSave) {
+						var parsedSave = JSON.parse(rawSave);
+						promises.push(window.WGCP.storage.save("saveState", parsedSave));
+					}
+					var rawScores = localStorage.getItem("highscores");
+					if (rawScores) {
+						var parsedScores = JSON.parse(rawScores);
+						promises.push(window.WGCP.storage.save("highscores", parsedScores));
+					}
+				} catch(e) {
+					console.warn("Hextris prepareExit flush warning:", e);
+				}
+				return Promise.all(promises);
+			});
+
 			// Pre-populate localStorage from cloud saves before initialization
 			return window.WGCP.storage.load("saveState").then(function(val) {
 				if (val) {
