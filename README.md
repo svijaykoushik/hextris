@@ -1,6 +1,9 @@
 Hextris
 ==========
 
+> [!NOTE]
+> **WGCP Integration**: This game has been forked and integrated into the [Web Game Console Platform (WGCP)](https://github.com/svijaykoushik/wgcp) using the WGCP SDK (`@wgcp/sdk`), supporting containerized orchestration, portal launcher embedding, and cloud platform features.
+
 <img src="images/twitter-opengraph.png" width="100px"><br>
 
 An addictive puzzle game inspired by Tetris. Play it at [www.hextris.io](http://www.hextris.io), or [https://hextris.github.io/hextris](https://hextris.github.io/hextris).
